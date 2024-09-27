@@ -1,0 +1,167 @@
+// Custom.scss
+// Option B: Include parts of Bootstrap
+@use "sass:list";
+@import "./globals.scss";
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+
+// 4. Include any default map overrides here
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+:root{
+    @media(min-width:500px){
+        --size-unit: 12px;
+    }
+    @media(max-width:500px){
+        --size-unit: 10px;
+    }
+    @media(max-width:350px){
+        --size-unit: 10px;
+    }
+}
+
+
+$custom-theme-colors:(
+    "theme-one": #ffd4db,
+    "theme-one-emphasis": #ff4566,
+    "theme-two": #99ff99,
+    "theme-three" :#ffff66,
+    "theme-four": #bcbcfd,
+);
+
+$theme-colors:map-merge($theme-colors,$custom-theme-colors);
+
+// 5. Include remainder of required parts
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+
+
+$custom-utilities-text-emphasis-colors:(
+    "theme-one-emphasis": #ff4566,
+    "theme-two-emphasis": #007600,
+    "theme-three-emphasis": #898900,
+    "theme-four-emphasis": #0000ff,
+);
+$utilities-text-emphasis-colors:map-merge($utilities-text-emphasis-colors,
+$custom-utilities-text-emphasis-colors);
+
+
+$custom-utilities-border-subtle:(
+    "theme-one-subtle": #ff4566,
+    "theme-two-subtle": #007600,
+    "theme-three-subtle": #898900,
+    "theme-four-subtle": #0000ff,
+);
+
+$utilities-border-subtle:map-merge($utilities-border-subtle,
+$custom-utilities-border-subtle);
+
+
+$form-check-input-checked-bg-color: $success;
+
+
+// 6. Optionally include any other parts as needed
+@import "../node_modules/bootstrap/scss/utilities";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/forms"; // custom addition
+//@import "../node_modules/bootstrap/scss/type";
+//@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/containers";
+@import "../node_modules/bootstrap/scss/grid";
+//@import "../node_modules/bootstrap/scss/helpers";
+
+
+$custom-utilities:(
+    "custom-box-shadow":(
+        "property":"box-shadow",
+        "values":(
+            "success":0px 0px 3px $success,
+            "danger":0px 0px 3px $danger,
+            "gray":0px 0px 3px $gray-600,
+        ),
+        "class":"shadow-color",
+    ),
+    "pointer-on-hover":(
+        "property":"cursor",
+        "values":(
+            null: pointer,
+        ),
+        "class":"pointer",
+    ),
+    "custom-font-size":(
+        property: "font-size",
+        values:(
+            "1": calc(5*var(--size-unit)),
+            "2": calc(4*var(--size-unit)),
+            "3": calc(3.5*var(--size-unit)),
+            "4": calc(3*var(--size-unit)),
+            "5": calc(2.5*var(--size-unit)),
+            "6": calc(2*var(--size-unit)),
+            null: calc(1.75*var(--size-unit)),
+            "mini": calc(1.5*var(--size-unit)),
+            "toomini": calc(1.1*var(--size-unit)),
+        ),
+        class:"myfs",
+    ),
+    "custom-padding":(
+        property: padding,
+        values:(
+            "1": calc(0.3*var(--size-unit)),
+            "2": calc(0.5*var(--size-unit)),
+        ),
+        class:"myp"
+    )
+);
+
+$utilities:map-merge($utilities, $custom-utilities);
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../node_modules/bootstrap/scss/utilities/api";
+
+// 8. Add additional custom code here
+@media(min-width: list.nth($size-media, 2)){
+    .portrait{
+        display: none;
+    }
+}
+@media(max-width: list.nth($size-media, 2)){
+    .landscape{
+        display: none;
+    }
+}
+
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+//loading screen
+/* HTML: <div class="loader"></div> */
+.loader {
+    height: 4px;
+    width: 130px;
+    --c:no-repeat linear-gradient(#ff4566 0 0);
+    background: var(--c),var(--c),white;
+    background-size: 60% 100%;
+    animation: l16 3s infinite;
+  }
+  @keyframes l16 {
+    0%   {background-position:-150% 0,-150% 0}
+    66%  {background-position: 250% 0,-150% 0}
+    100% {background-position: 250% 0, 250% 0}
+  }

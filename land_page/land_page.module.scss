@@ -1,0 +1,236 @@
+@use "sass:list";
+@import "../app/globals.scss";
+
+$standard-unit : var(--size-unit);
+
+.main-section{
+    position: relative;
+    min-height: 100vh;
+    background-image: linear-gradient(135deg, list.nth($theme-one, 2), list.nth($theme-one, 1));
+    color: white;
+    & > .main-bar{
+        display: flex;
+        justify-content: flex-end;
+        padding: calc(0.5*$standard-unit) 0px;
+        gap: $standard-unit;
+        & > div{
+            display: block;
+        }
+    }
+    
+    & > div:nth-child(2){
+        align-items: center;
+        overflow-x: hidden;
+        & > div:nth-child(1){
+            & > div{
+                width: 75%;
+                min-width: calc(25*$standard-unit);
+            }
+            
+            .main-font{
+                font-size: 380%;
+                font-weight: bold;
+                text-align: center;
+            }
+        }
+        & > div:nth-child(2){
+            & img {
+                width: 100%;
+                min-width: calc(40*$standard-unit);
+            }
+        }
+        
+    }
+    & > div:nth-child(3){
+        & > div{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            & > div{
+                width: 80%
+            }
+            & img{
+                width: 100%;
+            }
+            & .main-font{
+                text-align: center;
+                font-weight: bold;
+                font-size: 12vw;
+            }
+        }
+    }
+}
+
+.second-section{
+    margin: calc(4*$standard-unit) 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 calc(3*$standard-unit);
+    & > div{
+        margin: 0 calc(4*$standard-unit);
+        max-width: calc(25*$standard-unit);
+        & > img{
+            height: calc(20*$standard-unit);
+        }
+    }
+}
+
+.third-section{
+    position: relative;
+    height: calc(40*$standard-unit);
+    background-image: url("/3rd-section.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.fourth-section{
+    overflow-x: hidden;
+    & img{
+        width: 100%;
+        min-width: calc(45*$standard-unit);
+    }
+    & > div:nth-child(1){
+        div{
+            margin: calc(3*$standard-unit) 0;
+        }
+    }
+    & > div:nth-child(2){
+        & > div > div:nth-child(2), & > div > div:nth-child(4){
+            margin: 0 0 calc(6*$standard-unit) 0;
+        }
+    }
+}
+
+.fifth-section{
+    background-color: list.nth($theme-one, 2);
+    color: white;
+    & > div{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: calc(2*$standard-unit);
+        & > div{
+            margin: $standard-unit 0px;
+            & > div:nth-child(1){
+                border-radius: 5px;
+                border: 1px solid white;
+                height: calc(16*$standard-unit);
+                width: calc(12*$standard-unit);
+                position: relative;
+            }
+        }
+        & i{
+            font-size: calc(10*$standard-unit);
+            position: absolute;
+            left: 50%;
+            translate: -50%;
+        }
+    }
+}
+
+.sixth-section{
+    display: flex;
+    flex-wrap: wrap;
+    & > div{
+        min-width: calc(30*$standard-unit);
+        flex: 1;
+    }
+    & > div:nth-child(1){
+        & > div{
+            padding: calc(4*$standard-unit);
+            max-width: calc(40*$standard-unit);
+            position: relative;
+            left: 50%;
+            translate: -50%;
+        }
+    }
+    & > div:nth-child(2){
+        $left-shift: 50%;
+        $line-width: 2px;
+        position: relative;
+        height: calc(50*$standard-unit);
+        padding: calc(4*$standard-unit);
+        & > div:nth-child(1){
+            position: absolute;
+            left: $left-shift;
+            translate: -50%;
+            height: calc(3*$standard-unit);
+        }
+        & > div:nth-child(2){
+            position: absolute;
+            top: calc(7*$standard-unit);
+            left: $left-shift;
+            translate: -50%;
+            height: calc(14*$standard-unit);
+            width: $line-width;
+            background-color: list.nth($theme-one, 2);
+        }
+        & > div:nth-child(3){
+            position: absolute;
+            top: calc(21*$standard-unit);
+            left: $left-shift;
+            translate: -50%;
+            width: calc(1*$standard-unit);
+            height: calc(1*$standard-unit);
+            background-color: list.nth($theme-one, 2);
+            border-radius: 50%;
+        }
+        & > div:nth-child(4){
+            position: absolute;
+            top: calc(22*$standard-unit);
+            left: $left-shift;
+            translate: -50%;
+            height: calc(14*$standard-unit);
+            width: $line-width;
+            background-color: list.nth($theme-one, 2);
+        }
+        & > div:nth-child(5){
+            position: absolute;
+            top: calc(36*$standard-unit);
+            left: $left-shift;
+            translate: -50%;
+            width: calc(1*$standard-unit);
+            height: calc(1*$standard-unit);
+            background-color: list.nth($theme-one, 2);
+            border-radius: 50%;
+        }
+        & > div:nth-child(6){
+            position: absolute;
+            top: calc(21.5*$standard-unit);
+            left: calc($left-shift + 2*$standard-unit);
+            translate: 0px -50%;
+            width: calc(12*$standard-unit);
+        }
+        & > div:nth-child(7){
+            position: absolute;
+            top: calc(36.5*$standard-unit);
+            left: calc($left-shift + 2*$standard-unit);
+            translate: 0px -50%;
+            width: calc(12*$standard-unit);
+        }
+        & > div:nth-child(8){
+            position: absolute;
+            top: calc(45*$standard-unit);
+            left: $left-shift;
+            translate: -50%;
+            width: 50%;
+            text-align: center;
+            & > span{
+                background-color: list.nth($theme-one, 2);
+                color: white;
+                padding: calc(0.4*$standard-unit);
+                border-radius: 5px;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+.contact-section{
+    display: flex;
+    padding: calc(3*$standard-unit);
+    flex-wrap: wrap;
+    gap: calc(12*$standard-unit);
+}

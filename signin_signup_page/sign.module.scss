@@ -1,0 +1,44 @@
+$standard-unit : var(--size-unit);
+
+.main{
+    width: 100vw;
+    height: 100vh;
+    & > div{
+        top: 20%;
+        width: calc(30 * $standard-unit);
+    }
+}
+
+
+.custom-input{
+    position: relative;
+    width: 100%;
+    border-radius: 5px;
+    &.focus{
+        box-shadow: 0px 0px 3px var(--bs-primary);
+    }
+    & > div:first-child{
+        position: absolute;
+        top: 50%;
+        left: calc(0.25 * $standard-unit);
+        translate: 0 -50%;
+        color: var(--bs-gray-600);
+        font-size: calc(1.5 * $standard-unit);
+    }
+    &.focus > div:first-child{
+        transition: 0.1s ease-out;
+        top: 0%;
+        translate: 0 -15%;
+        font-size: calc(1 * $standard-unit);
+        color: var(--bs-primary);
+    }
+    & > input{
+        outline: none;
+        border: none;
+        width: 75%;
+        border-radius: 5px;
+        padding: calc(0.25 * $standard-unit);
+        padding-top: calc(0.75 * $standard-unit);
+        color: var(--bs-gray-700);
+    }
+}
