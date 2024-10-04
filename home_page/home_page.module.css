@@ -132,7 +132,9 @@
 }
 
 .edit-image {
-  width: calc(35 * var(--size-unit));
+  height: 70%;
+  max-height: calc(70 * var(--size-unit));
+  max-width: calc(35 * var(--size-unit));
   z-index: 4;
 }
 

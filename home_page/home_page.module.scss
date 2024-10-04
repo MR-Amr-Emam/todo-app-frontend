@@ -146,7 +146,9 @@ $standard-unit : var(--size-unit);
 }
 
 .edit-image{
-    width: calc(35*$standard-unit);
+    height: 70%;
+    max-height: calc(70*$standard-unit);
+    max-width: calc(35*$standard-unit);
     z-index: 4;
 }
 

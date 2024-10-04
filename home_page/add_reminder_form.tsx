@@ -18,6 +18,7 @@ export function AddReminder(props:{allReminders:any}){
     const formState = useSelector((state:RootState)=>state.menus.addForm);
     const [dropMenu, setDropMenu] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const [error, setError] = useState(false);
 
     useEffect(()=>{
         contentRef.current?.focus()
@@ -25,7 +26,7 @@ export function AddReminder(props:{allReminders:any}){
           var formEle = formRef.current;
           var target = e.target as HTMLElement;
           if(formEle && !formEle.contains(target)){
-            if(formState){dispatch(setAddForm())}
+            if(formState){dispatch(setAddForm()); setError(false)}
           }
         }
         function closeMenu(e:Event){
@@ -56,10 +57,12 @@ export function AddReminder(props:{allReminders:any}){
         })
         var data = await response?.json()
         if(data==undefined){
-            return 0
+            setError(true);
+            dispatch(setLoading(false));
         }
         dispatch(addReminder({index:currentIndex, id:data.id, dead_line:dead_line, content:contentRef.current?.value||"content"}));
         dispatch(setAddForm());
+        setError(false)
         if(contentRef.current){contentRef.current.value = "";}
         dispatch(setLoading(false))
     }
@@ -70,9 +73,9 @@ export function AddReminder(props:{allReminders:any}){
                 <p className="text-center fw-medium mx-4 border-bottom">add reminder</p>
                 <div className={`${style["time-input"]} myp-1 bg-secondary rounded`}>
                     <div>
-                        <input type="number" max="12" min="0" onChange={(e)=>{setDeadLine([e.target.value, deadLine[1], deadLine[2]])}}></input>
+                        <input type="number" max="12" min="0" onChange={(e)=>{setDeadLine([e.target.value, deadLine[1], deadLine[2]])}} required></input>
                         <span className="text-white fw-bold">:</span>
-                        <input type="number" max="59" min="0" onChange={(e)=>{setDeadLine([deadLine[0], e.target.value, deadLine[2]])}}></input>
+                        <input type="number" max="59" min="0" onChange={(e)=>{setDeadLine([deadLine[0], e.target.value, deadLine[2]])}} required></input>
                         <span className="text-white fw-bold">:</span>
                         <div className="pointer">
                             <div onClick={()=>{setDropMenu(true)}}>{deadLine[2]}</div>
@@ -90,13 +93,14 @@ export function AddReminder(props:{allReminders:any}){
             <div>
                 <div>
                     <textarea ref={contentRef} className={`${style["reminder-input"]} border border-white rounded text-dark`}
-                    placeholder="reminder"></textarea>
+                    placeholder="reminder" required></textarea>
                 </div>
             </div>
             <div className={"d-flex justify-content-center"}>
                 <div className={`bg-theme-one-emphasis myfs-mini text-light myp-1 rounded pointer text-center`}
                 onClick={()=>{CreateReminder()}}>+ add</div>
             </div>
+            <p className={`${error?"d-block":"d-none"} myfs-mini text-danger`}>set valid time and reminder</p>
         </div>
     )
 }

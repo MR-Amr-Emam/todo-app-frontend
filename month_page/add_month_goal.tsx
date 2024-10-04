@@ -20,6 +20,7 @@ export function AddMonthGoal(){
     const monthIndex = useSelector((state:RootState)=>state.currentData.monthIndex);
     const formRef = useRef<HTMLDivElement>(null);
     const [minigoals, setMinigoals] = useState<Array<string>>([]);
+    const [error, setError] = useState(false);
     var count = 0;
 
     useEffect(()=>{
@@ -28,7 +29,7 @@ export function AddMonthGoal(){
           var formEle = formRef.current;
           var target = e.target as HTMLElement;
           if(formEle && !formEle.contains(target)){
-            if(monthGoalForm){dispatch(setMonthGoalForm())}
+            if(monthGoalForm){dispatch(setMonthGoalForm()); setError(false);}
           }
         }
     
@@ -49,11 +50,12 @@ export function AddMonthGoal(){
             theme: rand,
             date_planned: `${date.getFullYear()}-${date.getMonth()+1}-1`,
         })
-        if(!response?.ok){return 0}
+        if(!response?.ok){setError(true); dispatch(setLoading(false)); return 0}
         dispatch(createMonthGoal({index:monthIndex, goalTitle:GoalTitleRef.current.value, minigoals:minigoals, theme:rand as 1|2|3|4}));
         dispatch(setMonthGoalForm());
         GoalTitleRef.current.value = "";
         setMinigoals([]);
+        setError(false)
         dispatch(setLoading(false))
     }
 
@@ -72,10 +74,10 @@ export function AddMonthGoal(){
                 </div>
                 <AddMinigoals minigoals={minigoals} setMinigoals={setMinigoals} />
             </div>
+            <p className={`${error?"d-block":"d-none"} myfs-mini text-danger`}>fill all fields</p>
             <div className="text-center">
                 <span className={`bg-theme-one-emphasis myfs-mini text-light myp-1 rounded pointer`}
-                    onClick={()=>{CreateGoal()}}>+ add
-                </span>
+                onClick={()=>{CreateGoal()}}>+ add</span>
             </div>
         </div>
     )

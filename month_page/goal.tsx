@@ -33,6 +33,7 @@ export function Goal(props: Props){
     var [addMinigoals, setAddMinigoals] = useState<boolean>(false);
     var addMinigoalsRef = useRef<HTMLDivElement>(null);
     var inputRef = useRef<HTMLInputElement>(null);
+    var [error, setError] = useState(false);
     var dispatch = useDispatch();
     var miniGoalCount = 0;
     useEffect(()=>{
@@ -41,6 +42,7 @@ export function Goal(props: Props){
             var target:EventTarget | null = e.target;
             if(addMinigoalsEle &&!addMinigoalsEle.contains(target as HTMLElement)){
                 if(addMinigoals){
+                    setError(false)
                     setAddMinigoals(false);
                 }
                 if(inputRef.current && inputRef.current.value){inputRef.current.value="";console.log("clicked")}
@@ -61,12 +63,15 @@ export function Goal(props: Props){
         }
     }
     async function CreateMiniGoal(){
-        if(!inputRef.current){return 0}
+        dispatch(setLoading(true))
+        if(!inputRef.current){setError(true); dispatch(setLoading(false)); return 0}
         var response = await Fetch(`/notes/perform_goal/${props.id}`, "PUT", {}, {miniGoal:inputRef.current.value})
-        if(!response?.ok){ return 0}
+        if(!response?.ok){setError(true); dispatch(setLoading(false)); return 0}
         dispatch(AddMinigoal({index:monthIndex, id: props.id, minigoal:inputRef.current.value}));
         setAddMinigoals(false);
+        setError(false)
         inputRef.current.value="";
+        dispatch(setLoading(false))
     }
     return(
         <div className={`${style.goal} ${themeRef.current[0]} mb-4 p-2 rounded`}>
@@ -105,6 +110,7 @@ export function Goal(props: Props){
                                 }}>+
                                 </span>
                             </div>
+                            <p className={`${error?"d-block":"d-none"} text-danger myfs-mini`}>add minigoal</p>
                         </div>
                     </div>
                 </div>

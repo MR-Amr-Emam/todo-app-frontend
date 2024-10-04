@@ -39,7 +39,7 @@ export function SignUpPage(){
             shadow-color-gray">
                 <div className="text-center myfs-6 text-theme-one-emphasis fw-semibold">sign up</div>
                 <div className="my-3">
-                    <CustomInput name="username" setData={setUsername} hide={false}/>
+                    <CustomInput name="username (no spaces)" setData={setUsername} hide={false}/>
                     <div className="my-4"></div>
                     <CustomInput name="password" setData={setPassword} hide={true}/>
                     <div className="my-4"></div>

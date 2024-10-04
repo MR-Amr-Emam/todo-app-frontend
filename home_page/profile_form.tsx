@@ -147,7 +147,7 @@ export function ProfileForm({profileImageNav}:{profileImageNav:HTMLImageElement|
                         <div className="myfs text-theme-one-emphasis">username <i className=
                         "bi bi-pencil-fill text-secondary myfs-mini pointer" onClick={()=>{setUsernameInput(true);}}/>
                         </div>
-                        {!usernameInput?<p>{user.username}</p>:<input defaultValue={user.username} ref={usernameRef} type="text" onBlur={(e)=>{setUsername(e.target as HTMLInputElement)}} />}
+                        {!usernameInput?<p>{user.username}</p>:<input defaultValue={user.username} ref={usernameRef} type="text" onBlur={(e)=>{setUsername(e.target as HTMLInputElement)}} required />}
                     </div>
                     <div>
                         <div className="myfs text-theme-one-emphasis">timezone</div>

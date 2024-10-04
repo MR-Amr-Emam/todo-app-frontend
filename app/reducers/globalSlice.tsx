@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "universal-cookie"
 
-const initialState = {serverDomain:"https://mramremam.pythonanywhere.com", loading:false, profileForm:false}
+const initialState = {serverDomain:"https://mramremam.pythonanywhere.com", loading:false, profileForm:false} //https://mramremam.pythonanywhere.com
 
 const LastIdSlice = createSlice({
     name:"global",

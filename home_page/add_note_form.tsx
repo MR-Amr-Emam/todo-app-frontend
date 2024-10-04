@@ -23,6 +23,7 @@ export function AddForm(props:{allNotes:any}){
   const numNotes = useSelector((state:RootState)=>state.currentData.numNotes)
   const dispatch = useDispatch();
   const formState = useSelector((state:RootState)=>state.menus.addForm)
+  const [error, setError] = useState(false);
 
   async function CreateNote(){
     dispatch(setLoading(true))
@@ -44,10 +45,13 @@ export function AddForm(props:{allNotes:any}){
         date_planned:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
       }
     )
+    if(!response){setError(true); dispatch(setLoading(false)); return 0}
     var data = await response?.json()
     dispatch(addNote({index:currentIndex, id:data.id, category:category, ...note}))
     dispatch(setNumNotes([numNotes[0]+1, numNotes[1]]))
     dispatch(setAddForm());
+    setError(false)
+    if(titleInputRef.current && contentInputRef.current){titleInputRef.current.value="";contentInputRef.current.value=""}
     dispatch(setLoading(false))
   }
 
@@ -64,7 +68,7 @@ export function AddForm(props:{allNotes:any}){
       var formEle = formRef.current;
       var target = e.target as HTMLElement;
       if(formEle && !formEle.contains(target)){
-        if(formState){dispatch(setAddForm())}
+        if(formState){dispatch(setAddForm()); setError(false)}
       }
     }
 
@@ -101,7 +105,7 @@ export function AddForm(props:{allNotes:any}){
           </div>
           <div className="col d-flex justify-content-end align-items-start">
             <div className={`bg-theme-one-emphasis myfs-mini text-light myp-1 rounded pointer`}
-            onClick={()=>{CreateNote(); if(titleInputRef.current && contentInputRef.current){titleInputRef.current.value="";contentInputRef.current.value=""}}}>+ add</div>
+            onClick={()=>{CreateNote();}}>+ add</div>
           </div>
         </div>
       </div>
@@ -111,6 +115,7 @@ export function AddForm(props:{allNotes:any}){
         e.target.style.height = "auto";
         e.target.style.height = `${e.target.scrollHeight}px`;
         }}></textarea></div>
+      <p className={`${error?"d-block":"d-none"} myfs-mini text-danger`}>fill all fields</p>
     </div>
   )
 }
