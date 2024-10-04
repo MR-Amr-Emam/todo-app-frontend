@@ -6,28 +6,36 @@ import { Link } from "react-router-dom";
 import style from "./land_page.module.css";
 
 export default function LandPage(){
-    var dynamicTextRef = useRef<HTMLSpanElement>(null);
+    var [dynamicText, setDynamicText] = useState<string>("");
 
     useEffect(()=>{
         var texts = ["enjoy outstanding experience", "put daily tasks", "make your time organised"];
         var current = [0,0];
         var text = ""
         var erase = false;
-        var time=150;
+        var time=400;
+        var interval = time;
+        var run=true
 
-        const dynamicTextInterval = setInterval(()=>{
-            if(!dynamicTextRef.current){return 0}
-            if(!current[1] && erase){erase = false; current[0]++; if(current[0]==3){current[0]=0}; return 0}
-            if(erase){current[1]--; text = text.slice(0, -1); dynamicTextRef.current.innerText = text; return 0}
-            text += texts[current[0]][current[1]]
-            dynamicTextRef.current.innerText = text
-            current[1] += 1;
-            if(current[1]==texts[current[0]].length){
-                erase = true;
-            }
-        }, (time*Math.random()));
-        
-        return (()=>{clearInterval(dynamicTextInterval)})
+        const dynamicTextInterval = () =>{
+            setTimeout(()=>{
+                if(!current[1] && erase){erase = false; current[0]++; if(current[0]==3){current[0]=0};}
+                else if(erase){current[1]--; text = text.slice(0, -1); setDynamicText(text); interval=((time*Math.random()*0.5+0.5))/2;}
+                else{
+                    text += texts[current[0]][current[1]]
+                    setDynamicText(text)
+                    current[1] += 1;
+                    interval=time*Math.random()*0.5+0.5;
+                    if(current[1]==texts[current[0]].length){
+                        erase = true;
+                        interval = 1500;
+                    }
+                }
+                if(run){dynamicTextInterval()}
+            }, interval);
+        }
+        dynamicTextInterval()
+        return (()=>{run=false})
     }, [])
 
     return(
@@ -84,7 +92,7 @@ export default function LandPage(){
             <div className={style["third-section"]}>
                 <div className="position-absolute bg-black w-100 h-100 opacity-75"></div>
                 <p className="text-white text-center position-absolute top-50 start-50 translate-middle myfs-1 fw-bold">
-                    <span ref = {dynamicTextRef}></span>
+                    <span>{dynamicText}</span>
                     <span className="fw-light">|</span>
                 </p>
             </div>
