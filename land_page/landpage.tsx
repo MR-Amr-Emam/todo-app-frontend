@@ -57,8 +57,6 @@ export default function LandPage(){
                             <img src="/main-section-image.png" alt="main-section-image" />
                         </div>
                     </div>
-
-
                     <div className="portrait">
                         <div>
                             <div>
