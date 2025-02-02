@@ -20,3 +20,6 @@ of five pages landpage, homepage, monthpage, signinpage and signuppage.
 * download dependecies with running "npm install" in main directory
 * deploy the app statically with running command "npm run build"
 * host the static folder with web server as Nginx
+
+### links are no longer work
+but you can download the project in you local machine
